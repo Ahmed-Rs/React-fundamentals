@@ -7,6 +7,8 @@ const Home = () => {
         <li>Zwei</li>
         <li>Drei</li>
         <li>Fier</li>
+        <li>cinq</li>
+        <li>Six</li>
       </ul>
     </div>
   );
