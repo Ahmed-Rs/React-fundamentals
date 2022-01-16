@@ -1,4 +1,4 @@
-import Logo from './Logo.js'
+import Logo from "./Logo.js";
 
 function Title() {
   return (
@@ -9,16 +9,22 @@ function Title() {
   );
 }
 
+const Navbar = () => {
+  return (
+    <div className="navbar">
+      <a href="/">Home</a>
+      <br />
+      <a href="/create">New Blog</a>
+    </div>
+  );
+};
+
 const Header = () => {
   return (
     <header className="header">
       <Title />
       <Logo />
-      <div className="links">
-        <a href="/">Home</a>
-        <br />
-        <a href="/create">New Blog</a>
-      </div>
+      <Navbar />
     </header>
   );
 };
