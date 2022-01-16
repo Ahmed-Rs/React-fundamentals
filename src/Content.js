@@ -5,7 +5,8 @@ const Home = () => {
       <ul>
         <li>Eins</li>
         <li>Zwei</li>
-        <li>Dry</li>
+        <li>Drei</li>
+        <li>Fier</li>
       </ul>
     </div>
   );
