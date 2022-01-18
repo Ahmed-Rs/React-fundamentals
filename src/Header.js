@@ -1,3 +1,4 @@
+import * as React from "react";
 import Logo from "./Logo.js";
 
 function Title() {

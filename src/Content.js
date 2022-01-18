@@ -1,3 +1,6 @@
+import * as React from "react";
+import Inscription from "./SignUp";
+
 const Container = ({
   className,
   children,
@@ -69,13 +72,19 @@ const myObjects = [
 ];
 
 function MesObjets() {
+  const [objets, setObjets] = React.useState(myObjects);
+  const addObjet = () => {
+    setObjets([...objets, { id: "système", value: "Windows" }]);
+  };
+
   return (
     <div>
       <ul>
-        {myObjects.map((myObject) => (
-          <li key={myObject.id}>{myObject.value}</li>
+        {objets.map((objet) => (
+          <li key={objet.id}>{objet.value}</li>
         ))}
       </ul>
+      <button onClick={addObjet}>Ajouter Objet</button>
     </div>
   );
 }
@@ -88,6 +97,7 @@ const Home = () => {
       {mediumContainer}
       {largeContainer}
       <MesObjets />
+      <Inscription />
     </div>
   );
 };

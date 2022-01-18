@@ -1,3 +1,5 @@
+import * as React from "react";
+
 const Logo = () => {
   return (
     <div className="img">
