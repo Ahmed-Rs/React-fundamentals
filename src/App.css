@@ -30,3 +30,43 @@
 .img img {
   width: 100%;
 }
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px;
+  padding-left: 30px;
+}
+
+.container--small {
+  width: auto;
+  padding: 10px;
+}
+
+.container--medium {
+  width: 400px;
+}
+
+.container--large {
+  width: 600px;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  color: rgb(45, 250, 250);
+}
+
+ul li {
+  color: orange;
+  margin: 20px;
+  padding: 10px;
+  padding-left: 30px;
+}
