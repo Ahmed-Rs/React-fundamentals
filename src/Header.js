@@ -14,7 +14,13 @@ const Navbar = () => {
     <div className="navbar">
       <a href="/">Home</a>
       <br />
-      <a href="/create">New Blog</a>
+      <a href="/">New Blog</a>
+      <br />
+      <a href="/">Contacts</a>
+      <br />
+      <a href="/">Sign In</a>
+      <br />
+      <a href="/">Sign Up</a>
     </div>
   );
 };
@@ -23,8 +29,8 @@ const Header = () => {
   return (
     <header className="header">
       <Title />
-      <Logo />
       <Navbar />
+      <Logo />
     </header>
   );
 };
