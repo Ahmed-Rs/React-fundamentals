@@ -1,6 +1,7 @@
 import * as React from "react";
 import Inscription from "./SignUp";
 
+// CONTAINER
 const Container = ({
   className,
   children,
@@ -64,11 +65,12 @@ const largeContainer = (
   </Container>
 );
 
+// OBJETS SYSTEMES D'EXPLOITATION
 const myObjects = [
-  { id: "fruits", value: "Orange" },
-  { id: "saison", value: "Hiver" },
-  { id: "tel", value: "Apple" },
-  { id: "opérateur", value: "Sfr" },
+  { id: "1", value: "iOS" },
+  { id: "2", value: "Liunx" },
+  { id: "3", value: "Ubuntu" },
+  { id: "opérateur", value: "IBM" },
 ];
 
 function MesObjets() {
@@ -89,6 +91,38 @@ function MesObjets() {
   );
 }
 
+function Calculator({ nb1, nb2, operation, style, ftStyle }) {
+  const opName = operation.name;
+  const [resultat, setResultat] = React.useState();
+  const [nombre1, setNombre1] = React.useState(nb1);
+  const [nombre2, setNombre2] = React.useState(nb2);
+
+  const handleClick = (a = nb1, b = nb2) => {
+    if (a instanceof Object) {
+      a = nb1;
+    }
+    setNombre1(a);
+    setNombre2(b);
+    setResultat(operation(a, b));
+  };
+  return (
+    <div style={{ color: "white", fontStyle: `${ftStyle}`, ...style }}>
+      <input type="button" value={`Calculer ${opName}`} onClick={handleClick} />
+      <input
+        type="button"
+        value={`Calculer ${opName}`}
+        onClick={() => handleClick(30, 40)}
+      />
+      {resultat
+        ? `Le resultat de ${opName} de ${nombre1} et ${nombre2} est ${resultat}`
+        : null}
+    </div>
+  );
+}
+
+const multiplication = (a, b) => a * b;
+const exponent = (a, b) => a * Math.exp(b);
+
 const Home = () => {
   return (
     <div className="home">
@@ -98,6 +132,15 @@ const Home = () => {
       {largeContainer}
       <MesObjets />
       <Inscription />
+      {/* <Calculator
+        style={{ fontSize: "30px" }}
+        ftStyle={"italic"}
+        nb1={3}
+        nb2={5}
+        operation={multiplication}
+      />
+      <Calculator ftStyle={"oblique"} nb1={1} nb2={2} operation={exponent} /> */}
+      <Calculator nb1={4} nb2={7} operation={exponent} />
     </div>
   );
 };
