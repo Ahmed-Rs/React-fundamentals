@@ -123,6 +123,28 @@ function Calculator({ nb1, nb2, operation, style, ftStyle }) {
 const multiplication = (a, b) => a * b;
 const exponent = (a, b) => a * Math.exp(b);
 
+// HOC
+const withBlueModifier = (WrappedContent) => {
+  return function (props) {
+    return <WrappedContent color={"blue"} {...props} />; // On rajoute le {...props} pour pouboir ajouter des props au choix, lors de l'appel final au composant <BlueButton />
+  };
+};
+
+// On déclare le Button normalement, on lui définit des props, puis dans le HOC, on donne des valeurs à ces props, et l'appel au HOC avec le Button en param, lui fera injecter les valeurs.
+// Le HOC prend en param un component et le restitue après lui avoir injecté des valeurs à travers les props.
+const Button = (props) => {
+  return (
+    <button
+      style={{ color: props.color, cursor: props.cursor, ...props.style }}
+      {...props}
+    >
+      Colorize
+    </button>
+  );
+};
+
+const BlueButton = withBlueModifier(Button);
+
 const Home = () => {
   return (
     <div className="home">
@@ -141,6 +163,7 @@ const Home = () => {
       />
       <Calculator ftStyle={"oblique"} nb1={1} nb2={2} operation={exponent} /> */}
       <Calculator nb1={4} nb2={7} operation={exponent} />
+      <BlueButton cursor={"pointer"} />
     </div>
   );
 };
