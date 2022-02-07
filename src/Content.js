@@ -1,5 +1,6 @@
 import * as React from "react";
 import Inscription from "./SignUp";
+import SportsHabit from "./Hook-1";
 
 // CONTAINER
 const Container = ({
@@ -120,7 +121,7 @@ function Calculator({ nb1, nb2, operation, style, ftStyle }) {
   );
 }
 
-const multiplication = (a, b) => a * b;
+// const multiplication = (a, b) => a * b;
 const exponent = (a, b) => a * Math.exp(b);
 
 // HOC
@@ -164,6 +165,7 @@ const Home = () => {
       <Calculator ftStyle={"oblique"} nb1={1} nb2={2} operation={exponent} /> */}
       <Calculator nb1={4} nb2={7} operation={exponent} />
       <BlueButton cursor={"pointer"} />
+      <SportsHabit />
     </div>
   );
 };
