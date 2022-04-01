@@ -41,7 +41,7 @@ function Country({ country, onCountryChange }) {
   );
 }
 
-// Usage useRef()
+// Usage useRef() qui color le countryBtn en rouge
 function Content({ artMartial, country, intensity }) {
   const countryBtn = React.useRef(null);
   const onButtonClick = () => {

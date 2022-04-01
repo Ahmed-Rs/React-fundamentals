@@ -1,6 +1,8 @@
 import * as React from "react";
 import Inscription from "./SignUp";
 import SportsHabit from "./Hook-1";
+import GlobalResearcher from "./MyApiSearch";
+import MangasApp from "./Mangas";
 
 // CONTAINER
 const Container = ({
@@ -127,7 +129,7 @@ const exponent = (a, b) => a * Math.exp(b);
 // HOC
 const withBlueModifier = (WrappedContent) => {
   return function (props) {
-    return <WrappedContent color={"blue"} {...props} />; // On rajoute le {...props} pour pouboir ajouter des props au choix, lors de l'appel final au composant <BlueButton />
+    return <WrappedContent color={"blue"} {...props} />; // On rajoute le {...props} pour pouvoir ajouter des props au choix, lors de l'appel final au composant <BlueButton />
   };
 };
 
@@ -166,6 +168,8 @@ const Home = () => {
       <Calculator nb1={4} nb2={7} operation={exponent} />
       <BlueButton cursor={"pointer"} />
       <SportsHabit />
+      <GlobalResearcher />
+      <MangasApp />
     </div>
   );
 };
