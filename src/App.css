@@ -1,58 +1,4 @@
-.header {
-  width: 100%;
-  max-width: 1200px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  position: relative;
-}
-
-.title,
-.navbar {
-  display: inline-block;
-  width: 300px;
-  background-color: rgb(197, 197, 197);
-  margin: 20px;
-  padding: 10px;
-  border-radius: 3px;
-}
-
-.img {
-  width: 100%;
-  text-align: center;
-  border-radius: 7px;
-  overflow: hidden;
-}
-
-.img img {
-  width: 100%;
-}
-
-.container {
-  width: 100%;
-  max-width: 600px;
-  display: inline-block;
-  margin: 20px;
-  padding: 10px;
-  padding-left: 30px;
-}
-
-.container--small {
-  width: auto;
-  padding: 10px;
-}
-
-.container--medium {
-  width: 400px;
-}
-
-.container--large {
-  width: 600px;
-}
-
+/* GENERAL SETTINGS */
 h1,
 h2 {
   text-align: center;
@@ -61,7 +7,7 @@ h2 {
 a {
   text-align: center;
   text-decoration: none;
-  color: rgb(45, 250, 250);
+  color: orange;
 }
 
 ul li {
@@ -98,4 +44,110 @@ input[type="submit"] {
   padding: 4px;
   font-size: 1.4em;
   font-weight: bold;
+}
+
+.img {
+  width: 100%;
+  text-align: center;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+/* HEADER */
+
+.header {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* LOGO */
+.logo-img {
+  box-shadow: 5px 5px 5px rgb(237, 194, 194);
+}
+
+/* TITLE & NAVBAR */
+.title,
+.navbar {
+  width: 100%;
+  background-color: rgb(211, 211, 211);
+  margin: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  /* box-shadow: 5px 5px 5px rgba(196, 194, 194, 0.7); */
+  font-weight: bold;
+  position: relative;
+}
+
+.title::before,
+.navbar::before {
+  box-shadow: 5px 5px 5px rgba(196, 194, 194, 0.7);
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.navbar {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+/* POKEMON RESEARCH SECTION */
+.pokemon-section {
+  background-color: rgba(235, 232, 232, 0.8);
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1.5em 1.5em;
+}
+
+.pokemon-label {
+  display: inline-block;
+}
+
+.pokemon-input {
+  display: inline-block;
+}
+
+.pokemon-img img {
+  width: 30%;
+  height: 30%;
+  margin: 0;
+}
+
+/* CONTENT CONTAINER */
+.container {
+  width: 100%;
+  max-width: 600px;
+  display: inline-block;
+  margin: 20px;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 5px;
+}
+
+.container--small {
+  width: auto;
+  padding: 10px;
+}
+
+.container--medium {
+  width: 400px;
+}
+
+.container--large {
+  width: 600px;
 }

@@ -151,7 +151,7 @@ const BlueButton = withBlueModifier(Button);
 const Home = () => {
   return (
     <div className="home">
-      <h1>App Component</h1>
+      <MangasApp />
       {smallContainer}
       {mediumContainer}
       {largeContainer}
@@ -169,7 +169,6 @@ const Home = () => {
       <BlueButton cursor={"pointer"} />
       <SportsHabit />
       <GlobalResearcher />
-      <MangasApp />
     </div>
   );
 };

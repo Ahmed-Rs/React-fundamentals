@@ -2,8 +2,8 @@ import * as React from "react";
 
 const Logo = () => {
   return (
-    <div className="img">
-      <img src={require("./welcome-img.jpg")} alt="My Site Figure" />
+    <div className="logo-img">
+      <img src={require("./Pokemon-Stars.jpg")} alt="My Site Figure" />
     </div>
   );
 };

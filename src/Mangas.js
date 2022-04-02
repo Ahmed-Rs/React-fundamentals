@@ -3,14 +3,14 @@ import * as React from "react";
 function PokemonResearcher({ pokemonQuery = "pikachu" }) {
   const [data, setData] = React.useState("");
   const [moreData, setMoreData] = React.useState([]);
-  const [spriteData, setSpriteData] = React.useState('');
+  const [spriteData, setSpriteData] = React.useState([]);
   const [error, setError] = React.useState(null);
   React.useEffect(() => {
+    // setData(null);
+    // setError(null); // A éviter car on risque de ne pas récupérer de données.
     if (!pokemonQuery) {
-      return null;
+      return;
     }
-    // setData(null)
-    // setError(null) A éviter car on risque de ne pas récupérer de données.
     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonQuery}`, {
       method: "GET",
       redirect: "follow",
@@ -26,16 +26,16 @@ function PokemonResearcher({ pokemonQuery = "pikachu" }) {
       })
       .then((info) => {
         setData(info); // Ne pas confondre le 'data' de setData et le 'data' qui nous est retourné par l'API
-        setMoreData(info.forms[0]);
-        setSpriteData(info.sprites)
+        setMoreData(info.abilities);
+        setSpriteData(info.sprites);
       })
       .catch((err) => {
         setError(err);
       });
   }, [pokemonQuery]);
 
-  console.log(data);
-  console.log(moreData);
+  // console.log(data);
+  // console.log(moreData);
   console.log(spriteData);
 
   if (error) {
@@ -46,11 +46,11 @@ function PokemonResearcher({ pokemonQuery = "pikachu" }) {
   return (
     <div>
       <p>
-        Your pokemon name is : {data.name} and he has {moreData.name}{" "}
-        as abilities
+        Your pokemon name is : {data.name} and he has {moreData.length}{" "}
+        abilities
       </p>
-      <div className="poke-img">
-        <img src={spriteData.front_shiny} alt="front_shiny_img" />
+      <div className="pokemon-img">
+        <img src={spriteData["front_shiny"]} alt="" />
       </div>
     </div>
   );
@@ -85,9 +85,12 @@ function PokemonApp() {
   const [pokemonName, setPokemonName] = React.useState("pikachu");
 
   return (
-    <div>
-      <label htmlFor="">Enter Manga Name</label>
+    <div className="pokemon-section">
+      <label htmlFor="" className="pokemon-label">
+        Enter Manga Name
+      </label>
       <input
+        className="pokemon-input"
         type="text"
         value={pokemonName}
         onChange={(e) => setPokemonName(e.target.value)}

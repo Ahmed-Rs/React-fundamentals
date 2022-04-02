@@ -4,8 +4,8 @@ import Logo from "./Logo.js";
 function Title() {
   return (
     <div className="title">
-      <h1>Our First Page</h1>
-      <h2>Our Header</h2>
+      <h1>Welcome to Pokemon Generator</h1>
+      <h2>API Based Researcher</h2>
     </div>
   );
 }
@@ -29,9 +29,9 @@ const Navbar = () => {
 const Header = () => {
   return (
     <header className="header">
+      <Logo />
       <Title />
       <Navbar />
-      <Logo />
     </header>
   );
 };
