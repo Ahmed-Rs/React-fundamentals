@@ -1,6 +1,6 @@
 import * as React from "react";
 
-function PokemonResearcher({ pokemonQuery = "pikachu" }) {
+function PokemonResearcher({ pokemonQuery = "" }) {
   const [data, setData] = React.useState("");
   const [moreData, setMoreData] = React.useState([]);
   const [spriteData, setSpriteData] = React.useState([]);
@@ -44,7 +44,7 @@ function PokemonResearcher({ pokemonQuery = "pikachu" }) {
   }
 
   return (
-    <div>
+    <>
       <p>
         Your pokemon name is : {data.name} and he has {moreData.length}{" "}
         abilities
@@ -52,7 +52,7 @@ function PokemonResearcher({ pokemonQuery = "pikachu" }) {
       <div className="pokemon-img">
         <img src={spriteData["front_shiny"]} alt="" />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -82,12 +82,12 @@ function ErrorDisplay({ error }) {
 }
 
 function PokemonApp() {
-  const [pokemonName, setPokemonName] = React.useState("pikachu");
+  const [pokemonName, setPokemonName] = React.useState("");
 
   return (
     <div className="pokemon-section">
       <label htmlFor="" className="pokemon-label">
-        Enter Manga Name
+        Enter Pokemon Name
       </label>
       <input
         className="pokemon-input"
@@ -95,7 +95,8 @@ function PokemonApp() {
         value={pokemonName}
         onChange={(e) => setPokemonName(e.target.value)}
       />
-      <ErrorBoundary key={setPokemonName} ErrorDisp={ErrorDisplay}>
+      <ErrorBoundary key={pokemonName} ErrorDisp={ErrorDisplay}>
+        {/* La clé est très importante car permet de réinitialiser l'erreur à chaque frappe, et donc de laisser le fetch se relancer à chaque frappe. Il convient de mettre la valeur pokemonName, et non son setter pour que cela fonctionne */}
         <PokemonResearcher pokemonQuery={pokemonName} />
       </ErrorBoundary>
     </div>

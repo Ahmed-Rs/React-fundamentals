@@ -152,11 +152,11 @@ const Home = () => {
   return (
     <div className="home">
       <MangasApp />
-      {smallContainer}
+      {/* {smallContainer}
       {mediumContainer}
-      {largeContainer}
-      <MesObjets />
-      <Inscription />
+      {largeContainer} */}
+      {/* <MesObjets />
+      <Inscription /> */}
       {/* <Calculator
         style={{ fontSize: "30px" }}
         ftStyle={"italic"}
@@ -165,10 +165,10 @@ const Home = () => {
         operation={multiplication}
       />
       <Calculator ftStyle={"oblique"} nb1={1} nb2={2} operation={exponent} /> */}
-      <Calculator nb1={4} nb2={7} operation={exponent} />
-      <BlueButton cursor={"pointer"} />
-      <SportsHabit />
-      <GlobalResearcher />
+      {/* <Calculator nb1={4} nb2={7} operation={exponent} /> */}
+      {/* <BlueButton cursor={"pointer"} /> */}
+      {/* <SportsHabit /> */}
+      {/* <GlobalResearcher /> */}
     </div>
   );
 };
