@@ -2,7 +2,7 @@ import * as React from "react";
 import Inscription from "./SignUp";
 import SportsHabit from "./Hook-1";
 import GlobalResearcher from "./MyApiSearch";
-import MangasApp from "./Mangas";
+import PokemonApp from "./Pokemon";
 
 // CONTAINER
 const Container = ({
@@ -151,7 +151,7 @@ const BlueButton = withBlueModifier(Button);
 const Home = () => {
   return (
     <div className="home">
-      <MangasApp />
+      <PokemonApp />
       {/* {smallContainer}
       {mediumContainer}
       {largeContainer} */}

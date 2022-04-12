@@ -14,7 +14,7 @@ const init = {
   method: "GET",
   redirect: "follow",
   headers: myHeader,
-  // mode: 'cors',
+  mode: "cors",
 };
 
 function fetchPokemon(pokemonQuery) {
@@ -73,29 +73,43 @@ function PokemonViewer({ pokemonName }) {
     return "Chargement en cours ...";
   } else if (status === "done") {
     return (
-      <div>
+      <>
         {mainData ? (
           <PokemonPersoView mainDataViewer={mainData} />
         ) : (
           `Le Pokemon n'existe pas`
         )}
-      </div>
+      </>
     );
   }
 }
 
 function PokemonPersoView({ mainDataViewer }) {
   return (
-    <div>
-      <p>Pokemon Name: {mainDataViewer.name}</p>{" "}
-      {/* On a réussi à accéder aux données de l'Objet mainDataViewer et donc mainData, en initialisant à {} au lieu de null. Ou alors on initialise à null et on utilise mainDataViewer?.name, ainsi nous évitons d'obtenir une erreur de console, car il faut savoir que le composant se render d'abord puis, le contenu du useEffect() s'exécute */}
-      <p>
-        Pokemon Abilities:{" "}
-        {mainDataViewer.abilities
-          ? mainDataViewer.abilities[0].ability.name
-          : `null`}{" "}
-        {/* Usage d'un ternaire pour 'donner le temps' au composant d'afficher les valeurs chargées par useEffect() */}
-      </p>
+    <div className="pokemon-capsule">
+      <div className="pokemon-description">
+        <p className="pokemon-description-name">
+          Pokemon Name:
+          <br /> {mainDataViewer.name}
+        </p>{" "}
+        {/* On a réussi à accéder aux données de l'Objet mainDataViewer et donc mainData, en initialisant à {} au lieu de null. Ou alors on initialise à null et on utilise mainDataViewer?.name, ainsi nous évitons d'obtenir une erreur de console, car il faut savoir que le composant se render d'abord puis, le contenu du useEffect() s'exécute */}
+        <p className="pokemon-description-experience">
+          Base-Experience:
+          <br /> {mainDataViewer.base_experience}
+        </p>
+        <p className="pokemon-description-abilities">
+          Abilities:
+          <br />{" "}
+          {mainDataViewer.abilities
+            ? mainDataViewer.abilities.length
+            : `null`}{" "}
+          {/* Usage d'un ternaire pour 'donner le temps' au composant d'afficher les valeurs chargées par useEffect() */}
+        </p>
+        <p className="pokemon-description-weight">
+          Weight:
+          <br /> {mainDataViewer.weight}
+        </p>
+      </div>
       <div className="pokemon-img">
         <img src={mainDataViewer.sprites?.front_shiny} alt="" />
       </div>
