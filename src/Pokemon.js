@@ -35,28 +35,36 @@ const reducer = (data, action) => {
   }
 };
 
-function useFetchData(search, fetch) {
+function useFetchData(callback) {
   const [data, dispatch] = React.useReducer(reducer, {
     mainData: {},
     error: null,
     status: "idle",
   });
   React.useEffect(() => {
-    if (!search) {
+    const promise = callback()
+    if (!promise) {
       return;
     }
     dispatch({ type: "fetching" });
-    fetch(search)
+
+    promise
       .then((response) => response.json())
       .then((info) => dispatch({ type: "done", payload: info }))
       .catch((error) => dispatch({ type: "fail", payload: error }));
-  }, [search, fetch]);
+  }, [callback]);
 
   return data;
 }
 
 function usePokemonResearcher(pokemonQuery) {
-  return useFetchData(pokemonQuery, fetchPokemon);
+  const myCallback = React.useCallback(()=> {
+    if (!pokemonQuery) {
+      return
+    }
+    return fetchPokemon(pokemonQuery)
+  }, [pokemonQuery])
+  return useFetchData(myCallback);
 }
 
 function PokemonViewer({ pokemonName }) {

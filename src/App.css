@@ -81,7 +81,6 @@ input[type="submit"] {
   margin: 20px;
   padding: 10px;
   border-radius: 3px;
-  /* box-shadow: 5px 5px 5px rgba(196, 194, 194, 0.7); */
   font-weight: bold;
   position: relative;
 }
@@ -165,8 +164,8 @@ input[type="submit"] {
   padding: 5px;
   width: 100%;
   height: 100%;
-  box-shadow: 5px 5px 5px rgba(29, 217, 217, 0.7), inset 5px 5px 5px rgba(29, 217, 217, 0.7);
-
+  box-shadow: 5px 5px 5px rgba(29, 217, 217, 0.7),
+    inset 5px 5px 5px rgba(29, 217, 217, 0.7);
 }
 
 .pokemon-description p {
@@ -175,15 +174,15 @@ input[type="submit"] {
 }
 
 .pokemon-img {
-  box-shadow: 5px 5px 5px rgba(229, 7, 27, 0.7), inset 5px 5px 5px rgba(229, 7, 27, 0.7);
+  box-shadow: 5px 5px 5px rgba(229, 7, 27, 0.7),
+    inset 5px 5px 5px rgba(229, 7, 27, 0.7);
   width: 100%;
   height: 100%;
-
 }
 
 .pokemon-img img {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   margin: 0;
   padding: 0;
 }
