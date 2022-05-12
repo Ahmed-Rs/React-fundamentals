@@ -1,6 +1,7 @@
 import * as React from "react";
 import CheckBox from "./CheckBox";
-import { default as TabsComponent } from "./tab";
+import './tab.css'
+// import { default as TabsComponent } from "./tab";
 
 // CHECKBOX
 // Compouned Component
@@ -28,12 +29,7 @@ function CheckBoxButton({ checked, tick, ...props }) {
 }
 
 // TABS
-const options = [
-  { title: "London", display: "London is the capital city of England." },
-  { title: "Paris", display: "Paris is the capital of France." },
-  { title: "Tokyo", display: "Tokyo is the capital of Japan." },
-];
-
+// Dans cette nouvelle configuration, avec COMPOSNTS IMBRIQUES, on s'est passé du './tab.js'
 function CompounedTab({ children }) {
   const [selectedTabId, setSelectedTabId] = React.useState(0);
   const selectTab = (id) => setSelectedTabId(id);
@@ -46,22 +42,47 @@ function CompounedTab({ children }) {
   );
 }
 
-function London({ selectedTabId, children }) {
-  return selectedTabId === 0 ? <div>{children}</div> : null;
-}
-
-function Paris({ selectedTabId, children }) {
-  return selectedTabId === 1 ? <div>{children}</div> : null;
-}
-
-function Tokyo({ selectedTabId, children }) {
-  return selectedTabId === 2 ? <div>{children}</div> : null;
-}
-
-function Tabs({ selectedTabId, selectTab, ...props }) {
-  return (
-    <TabsComponent selected={selectedTabId} onChange={selectTab} {...props} />
+function TabList({ selectedTabId, selectTab, children, ...props }) {
+  const clones = React.Children.map(children, (child, tabId) =>
+    React.cloneElement(child, {
+      selectedTabId: selectedTabId,
+      selectTab: selectTab,
+      tabId: tabId,
+      ...props,
+    })
   );
+  return (
+    <div className="tab" {...props}>
+      {clones}
+    </div>
+  );
+}
+
+function Tab({ selectedTabId, selectTab, tabId, children }) {
+  return (
+    <button
+      key={children}
+      className={selectedTabId === tabId ? "tablinks active" : "tablinks"}
+      onClick={(e) => selectTab(tabId)}
+    >
+      {children}
+    </button>
+  );
+}
+
+function TabPanels({ selectedTabId, children }) {
+  return React.Children.map(children, (child, panelId) =>
+    React.cloneElement(child, {
+      selectedTabId: selectedTabId,
+      panelId: panelId,
+      className: "tabcontent",
+    })
+  );
+}
+
+// Les id tabId (donc selectedTabId) et panelId sont égaux automatiquement car dans PokemonApp2, on a déclaré les noms des villes et les inscription dans ces villes dans le même ordre. Pour s'en rendre compte on peut inverser les positions de deux <Panel /> par ex.
+function Panel({ selectedTabId, children, panelId, ...props }) {
+  return panelId === selectedTabId ? <div {...props}>{children}</div> : null;
 }
 
 // EXPORT FUNCTION
@@ -75,10 +96,16 @@ function PokemonApp2() {
       </CompounedComponentParent>
 
       <CompounedTab>
-        <Tabs tabs={options} />
-        <London>Inscription pour aller à Londres</London>
-        <Paris>Inscription pour aller à Paris</Paris>
-        <Tokyo>Inscription pour aller à Tokyo</Tokyo>
+        <TabList>
+          <Tab>London</Tab>
+          <Tab>Paris</Tab>
+          <Tab>tokyo</Tab>
+        </TabList>
+        <TabPanels>
+          <Panel>Inscription pour aller à Londres</Panel>
+          <Panel>Inscription pour aller à Paris</Panel>
+          <Panel>Inscription pour aller à Tokyo</Panel>
+        </TabPanels>
       </CompounedTab>
     </div>
   );
