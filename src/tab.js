@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./tab.css";
 
-function Tabs({ selected, onChange, tabs }) {
+function Tabs({ selected = 0, onChange, tabs }) {
   return (
     <div className="tabs">
       <div className="tab">
@@ -9,8 +9,8 @@ function Tabs({ selected, onChange, tabs }) {
           return (
             <button
               key={id}
-              onChange={onChange}
-              className={selected ? "tablinks active" : "tablinks"} // La class active affiche le contenu, tandis que tablinks n'affiche rien, car pas défini dans le fichier css
+              className={selected === id ? "tablinks active" : "tablinks"} // La class active affiche le contenu, tandis que tablinks n'affiche rien, car pas défini dans le fichier css
+              onClick={(e) => onChange(id)}
             >
               {item.title}
             </button>
@@ -26,3 +26,4 @@ function Tabs({ selected, onChange, tabs }) {
 }
 
 export default Tabs;
+
