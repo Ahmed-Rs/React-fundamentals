@@ -1,6 +1,6 @@
 import * as React from "react";
 import CheckBox from "./CheckBox";
-import './tab.css'
+import "./tab.css";
 // import { default as TabsComponent } from "./tab";
 
 // CHECKBOX
@@ -30,16 +30,25 @@ function CheckBoxButton({ checked, tick, ...props }) {
 
 // TABS
 // Dans cette nouvelle configuration, avec COMPOSNTS IMBRIQUES, on s'est passé du './tab.js'
-function CompounedTab({ children }) {
+function CompounedTab({ children, ...props }) {
   const [selectedTabId, setSelectedTabId] = React.useState(0);
   const selectTab = (id) => setSelectedTabId(id);
-
-  return React.Children.map(children, (child) =>
-    React.cloneElement(child, {
-      selectedTabId: selectedTabId,
-      selectTab: selectTab,
-    })
+  
+  // On teste le type du child avant de décider de clôner afin de ne pas avoir de warning
+  const clones = React.Children.map(children, (child) =>
+    { return typeof child.type === "string"
+      ? child
+      : React.cloneElement(child, {
+          selectedTabId: selectedTabId,
+          selectTab: selectTab,
+        })}
   );
+
+  return (
+    <div className="tabs" {...props}>
+      {clones}
+    </div>
+  )
 }
 
 function TabList({ selectedTabId, selectTab, children, ...props }) {
@@ -106,6 +115,7 @@ function PokemonApp2() {
           <Panel>Inscription pour aller à Paris</Panel>
           <Panel>Inscription pour aller à Tokyo</Panel>
         </TabPanels>
+        <small>Hello World, Composant Enfant Autre</small>
       </CompounedTab>
     </div>
   );
