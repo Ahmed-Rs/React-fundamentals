@@ -3,6 +3,7 @@ import Inscription from "./SignUp";
 import SportsHabit from "./Hook-1";
 import GlobalResearcher from "./MyApiSearch";
 import PokemonApp from "./Pokemon";
+import PokemonApp2 from "./Pokemon-2";
 
 // CONTAINER
 const Container = ({
@@ -152,6 +153,7 @@ const Home = () => {
   return (
     <div className="home">
       <PokemonApp />
+      <PokemonApp2 />
       {/* {smallContainer}
       {mediumContainer}
       {largeContainer} */}

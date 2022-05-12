@@ -62,7 +62,7 @@ function usePokemonResearcher(pokemonQuery) {
     if (!pokemonQuery) {
       return
     }
-    return fetchPokemon(pokemonQuery)
+    return fetchPokemon(pokemonQuery) // On récupère ici une callback à passer en param. de useFetchData()
   }, [pokemonQuery])
   return useFetchData(myCallback);
 }
@@ -151,7 +151,7 @@ function ErrorDisplay({ error }) {
 }
 
 function PokemonApp() {
-  const [pokemonName, setPokemonName] = React.useState("pikachu");
+  const [pokemonName, setPokemonName] = React.useState("pikachu"); // C'est ici et dans la value de m'input plus -bas que se décide la véritable value du pokemonName à rechercher.
 
   return (
     <div className="pokemon-section">
