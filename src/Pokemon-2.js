@@ -30,32 +30,38 @@ function CheckBoxButton({ checked, tick, ...props }) {
 
 // TABS
 // Dans cette nouvelle configuration, avec COMPOSNTS IMBRIQUES, on s'est passé du './tab.js'
+// Ajout d'un Context pour alléger la transmission des props
+
+const TabsContext = React.createContext();
+
+function useTabs() {
+  const context = React.useContext(TabsContext);
+  if (!context) {
+    throw new Error(
+      "useTabs s'utilise dans un composant <Tabs /> car contient le Provider!"
+    );
+  }
+  return context;
+}
+
 function CompounedTab({ children, ...props }) {
   const [selectedTabId, setSelectedTabId] = React.useState(0);
   const selectTab = (id) => setSelectedTabId(id);
-  
-  // On teste le type du child avant de décider de clôner afin de ne pas avoir de warning
-  const clones = React.Children.map(children, (child) =>
-    { return typeof child.type === "string"
-      ? child
-      : React.cloneElement(child, {
-          selectedTabId: selectedTabId,
-          selectTab: selectTab,
-        })}
-  );
 
+  // Passage des props via Context
   return (
-    <div className="tabs" {...props}>
-      {clones}
-    </div>
-  )
+    <TabsContext.Provider value={{ selectedTabId, selectTab }}>
+      <div className="tabs" {...props}>
+        {children}
+      </div>
+    </TabsContext.Provider>
+  );
 }
 
-function TabList({ selectedTabId, selectTab, children, ...props }) {
+// Suppression des props passé via Context
+function TabList({ children, ...props }) {
   const clones = React.Children.map(children, (child, tabId) =>
     React.cloneElement(child, {
-      selectedTabId: selectedTabId,
-      selectTab: selectTab,
       tabId: tabId,
       ...props,
     })
@@ -67,7 +73,9 @@ function TabList({ selectedTabId, selectTab, children, ...props }) {
   );
 }
 
-function Tab({ selectedTabId, selectTab, tabId, children }) {
+// Injection des props selectedTabId, selectTab via Context
+function Tab({ tabId, children }) {
+  const { selectedTabId, selectTab } = useTabs();
   return (
     <button
       key={children}
@@ -79,18 +87,17 @@ function Tab({ selectedTabId, selectTab, tabId, children }) {
   );
 }
 
-function TabPanels({ selectedTabId, children }) {
+function TabPanels({ children }) {
   return React.Children.map(children, (child, panelId) =>
     React.cloneElement(child, {
-      selectedTabId: selectedTabId,
       panelId: panelId,
       className: "tabcontent",
     })
   );
 }
 
-// Les id tabId (donc selectedTabId) et panelId sont égaux automatiquement car dans PokemonApp2, on a déclaré les noms des villes et les inscription dans ces villes dans le même ordre. Pour s'en rendre compte on peut inverser les positions de deux <Panel /> par ex.
-function Panel({ selectedTabId, children, panelId, ...props }) {
+function Panel({ children, panelId, ...props }) {
+  const {selectedTabId} = useTabs();
   return panelId === selectedTabId ? <div {...props}>{children}</div> : null;
 }
 
