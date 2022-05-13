@@ -1,5 +1,6 @@
 import * as React from "react";
 import CheckBox from "./CheckBox";
+import CheckBoxReduced from "./reducerCheckBox";
 import "./tab.css";
 // import { default as TabsComponent } from "./tab";
 
@@ -97,8 +98,38 @@ function TabPanels({ children }) {
 }
 
 function Panel({ children, panelId, ...props }) {
-  const {selectedTabId} = useTabs();
+  const { selectedTabId } = useTabs();
   return panelId === selectedTabId ? <div {...props}>{children}</div> : null;
+}
+
+// CheckBox via Aria
+function useAriaCheckBox() {
+  const [checked, setChecked] = React.useState(false);
+  const tick = (e)=> setChecked(!checked); // Obligation de mettre cette expression en fct fléchée car sinon: Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
+  // En effet, la page fera appel tout le temps à tick(), ce qui fait trop de render, alors qu'en mettant cela en fct fléchée, le tick() ne sera appelé que lorsqu'il y'aura un onClick ou onChange pour le déclencher
+
+  return {
+    checked,
+    tick,
+    checkBoxProps: {
+      role: "checkbox",
+      "aria-checked": checked,
+      onClick: tick,
+      onChange: tick,
+    },
+  };
+}
+
+function AriaCheckBox() {
+  const { checked, checkBoxProps } = useAriaCheckBox();
+  return (
+    <div>
+      <CheckBox checked={checked} {...checkBoxProps} />
+      <button aria-label="checkbox-personnalise" {...checkBoxProps}>
+        {checked ? "✅" : "❌"}
+      </button>
+    </div>
+  );
 }
 
 // EXPORT FUNCTION
@@ -124,6 +155,8 @@ function PokemonApp2() {
         </TabPanels>
         <small>Hello World, Composant Enfant Autre</small>
       </CompounedTab>
+      <AriaCheckBox />
+      <CheckBoxReduced />
     </div>
   );
 }
