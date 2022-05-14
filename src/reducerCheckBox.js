@@ -6,7 +6,7 @@ import "./tab.css";
 const executeAll =
   (...functions) =>
   (...args) =>
-    functions.forEach((x) => x?.(...args));
+    functions.forEach((func) => func?.(...args));
 
 const defaultReducer = (state, action) => {
   switch (action.type) {
@@ -33,14 +33,14 @@ function useCheckBox({ intialChecked = false, reducer = defaultReducer }) {
   const getCheckBoxerProps = ({ onClick, ...props } = {}) => {
     return {
       "aria-checked": checked,
-      onChange: executeAll({ onClick, tick }),
+      onChange: executeAll(onClick, tick),
       ...props,
     };
   };
 
   const getResetterProps = ({ onClick, ...props } = {}) => {
     return {
-      onChange: executeAll({ onClick, reset }),
+      onClick: executeAll(onClick, reset),
       ...props,
     };
   };
@@ -61,17 +61,19 @@ function CheckBoxReduced() {
   // Custom Reducer
   const customReducer = (state, action) => {
     switch (action.type) {
-      case "tick":
+      case "tick": {
         if (maxTimesChanged) {
           return { checked: state.checked };
         } else {
           return { checked: !state.checked };
         }
-      case "reset":
+      }
+      case "reset": {
         return { checked: false };
-
-      default:
+      }
+      default: {
         throw new Error(`Action non supportée: ${action.type}`);
+      }
     }
   };
 
@@ -86,10 +88,7 @@ function CheckBoxReduced() {
         checked={checked}
         {...getCheckBoxerProps({
           checked: checked,
-          onClick: () =>
-            setTimesChanged((count) => {
-              count = count + 1;
-            }),
+          onClick: () => setTimesChanged((count) => count + 1),
         })}
       />
       {maxTimesChanged ? (
@@ -98,13 +97,8 @@ function CheckBoxReduced() {
         <div>Nombre de changements : {timesChanged}</div>
       ) : null}
 
-      <button
-        {...getResetterProps({
-          checked: checked,
-          onClick: () => setTimesChanged(0),
-        })}
-      >
-        reset
+      <button {...getResetterProps({ onClick: () => setTimesChanged(0) })}>
+        Reset
       </button>
     </div>
   );
