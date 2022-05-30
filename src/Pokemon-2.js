@@ -2,6 +2,7 @@ import * as React from "react";
 import CheckBox from "./CheckBox";
 import CheckBoxReduced from "./reducerCheckBox";
 import "./tab.css";
+import PropsControledCheckbox from "./propsControlCheckBox";
 // import { default as TabsComponent } from "./tab";
 
 // CHECKBOX
@@ -10,7 +11,7 @@ function CompounedComponentParent({ children }) {
   const [checked, setChecked] = React.useState(false);
   const tick = () => setChecked(!checked);
   // Clônage
-  // Dans une fct flèchée, ne pas mettre d'accolades après la flèche sauf si on ajoute un return
+  // Dans une fct fléchée, ne pas mettre d'accolades après la flèche sauf si on ajoute un return
   return React.Children.map(children, (child) =>
     React.cloneElement(child, { checked: checked, tick: tick })
   );
@@ -30,7 +31,7 @@ function CheckBoxButton({ checked, tick, ...props }) {
 }
 
 // TABS
-// Dans cette nouvelle configuration, avec COMPOSNTS IMBRIQUES, on s'est passé du './tab.js'
+// Dans cette nouvelle configuration, avec COMPOSANTS IMBRIQUES, on s'est passé du './tab.js'
 // Ajout d'un Context pour alléger la transmission des props
 
 const TabsContext = React.createContext();
@@ -105,7 +106,7 @@ function Panel({ children, panelId, ...props }) {
 // CheckBox via Aria
 function useAriaCheckBox() {
   const [checked, setChecked] = React.useState(false);
-  const tick = (e)=> setChecked(!checked); // Obligation de mettre cette expression en fct fléchée car sinon: Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
+  const tick = (e) => setChecked(!checked); // Obligation de mettre cette expression en fct fléchée car sinon: Uncaught Error: Too many re-renders. React limits the number of renders to prevent an infinite loop.
   // En effet, la page fera appel tout le temps à tick(), ce qui fait trop de render, alors qu'en mettant cela en fct fléchée, le tick() ne sera appelé que lorsqu'il y'aura un onClick ou onChange pour le déclencher
 
   return {
@@ -157,6 +158,7 @@ function PokemonApp2() {
       </CompounedTab>
       <AriaCheckBox />
       <CheckBoxReduced />
+      <PropsControledCheckbox />
     </div>
   );
 }

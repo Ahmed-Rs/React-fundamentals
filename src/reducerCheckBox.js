@@ -21,14 +21,27 @@ const defaultReducer = (state, action) => {
   }
 };
 
-function useCheckBox({ intialChecked = false, reducer = defaultReducer }) {
+function useCheckBox({
+  intialChecked = false,
+  reducer = defaultReducer,
+  checked: controlledChecked,
+  onChange,
+}) {
   // Transformation de state en Objet, contenant propriété 'checked'
   const initialState = { checked: intialChecked };
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { checked } = state;
-  // Création des fct de dispatch
-  const tick = () => dispatch({ type: "tick" });
-  const reset = () => dispatch({ type: "reset", initialState });
+  // const { checked } = state;
+  const checkedIsControlled = controlledChecked != null;
+  const checked = checkedIsControlled ? controlledChecked : state.checked;
+  // Création des fct de dispatch transformé en dispatchWithOnChange
+  const dispatchWithOnChange = (action) => {
+    if (!checkedIsControlled) {
+      dispatch(action);
+    }
+    onChange?.(reducer({ ...state, checked }, action), action);
+  };
+  const tick = () => dispatchWithOnChange({ type: "tick" });
+  const reset = () => dispatchWithOnChange({ type: "reset", initialState });
 
   const getCheckBoxerProps = ({ onClick, ...props } = {}) => {
     return {
@@ -105,3 +118,4 @@ function CheckBoxReduced() {
 }
 
 export default CheckBoxReduced;
+export { defaultReducer, useCheckBox };
